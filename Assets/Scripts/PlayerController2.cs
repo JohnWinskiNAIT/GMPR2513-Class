@@ -18,6 +18,7 @@ public class PlayerController2 : MonoBehaviour
     {
         inputReader.MoveEvent += MovePlayer;
         inputReader.JumpEvent += JumpPlayer;
+        //inputReader.MoveForward += MoveForward;
     }
 
     private void OnDisable()
@@ -35,6 +36,7 @@ public class PlayerController2 : MonoBehaviour
     {
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
+
 
     private void FixedUpdate()
     {

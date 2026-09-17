@@ -46,4 +46,14 @@ public class InputReader2 : ScriptableObject, PlayerControls.IPlayerActions
             JumpCanceledEvent?.Invoke();
         }
     }
+
+    public void MovePlayerForward()
+    {
+        MoveEvent?.Invoke(new Vector2(0, 1));
+    }
+
+    public void MovePlayerBackward()
+    {
+        MoveEvent?.Invoke(new Vector2(0, -1));
+    }
 }
