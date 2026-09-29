@@ -47,6 +47,14 @@ public class InputReader2 : ScriptableObject, PlayerControls.IPlayerActions
         }
     }
 
+    public void OnQuit(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            Application.Quit();
+        }
+    }
+
     public void MovePlayerForward()
     {
         MoveEvent?.Invoke(new Vector2(0, 1));

@@ -1,17 +1,19 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerController2 : MonoBehaviour
 {
     [SerializeField] private InputReader2 inputReader;
     [SerializeField] float moveSpeed;
     [SerializeField] float jumpForce;
+    [SerializeField] GameObject firstSelected;
 
     Rigidbody rb;
     Vector2 moveInput;
 
     void Awake()
     {
-        rb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();        
     }
 
     private void OnEnable()
@@ -30,6 +32,8 @@ public class PlayerController2 : MonoBehaviour
     void MovePlayer(Vector2 movement)
     {
         moveInput = movement;
+        //EventSystem.current.SetSelectedGameObject(null);
+        //EventSystem.current.SetSelectedGameObject(firstSelected);
     }
 
     void JumpPlayer()

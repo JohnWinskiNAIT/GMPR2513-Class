@@ -41,4 +41,9 @@ public class InputReader : MonoBehaviour, PlayerControls.IPlayerActions
             JumpPressed = false;
         }
     }
+
+    public void OnQuit(InputAction.CallbackContext context)
+    {
+       
+    }
 }
