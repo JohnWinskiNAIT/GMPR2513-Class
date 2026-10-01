@@ -1055,6 +1055,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TankController
   tankInputReader: {fileID: 11400000, guid: cabad7801be403b4c84886353965e96a, type: 2}
   tankData: {fileID: 11400000, guid: 02dcda10bff7e244daf16471b490cb1e, type: 2}
+  turret: {fileID: 859011160}
+  cannon: {fileID: 2114556830}
 --- !u!1 &1578392351
 GameObject:
   m_ObjectHideFlags: 0

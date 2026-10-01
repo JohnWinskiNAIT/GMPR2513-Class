@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class TankInputReader : ScriptableObject, TankInput.IMovementActions
 {
     public event UnityAction<Vector2> MoveEvent;
+    public event UnityAction<Vector2> TurretMoveEvent;
 
     private TankInput _movementActions;
 
@@ -30,6 +31,14 @@ public class TankInputReader : ScriptableObject, TankInput.IMovementActions
         if (context.performed || context.canceled)
         {
             MoveEvent?.Invoke(context.ReadValue<Vector2>());
+        }
+    }
+
+    public void OnTurretMove(InputAction.CallbackContext context)
+    {
+        if (context.performed || context.canceled)
+        {
+            TurretMoveEvent?.Invoke(context.ReadValue<Vector2>());
         }
     }
 }
