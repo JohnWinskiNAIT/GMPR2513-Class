@@ -1,4 +1,8 @@
+using System;
+using Unity.Cinemachine;
+using UnityEditor.PackageManager;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class TankController : MonoBehaviour
 {
@@ -6,8 +10,23 @@ public class TankController : MonoBehaviour
     [SerializeField] TankData tankData;
     [SerializeField] GameObject turret, cannon;
 
+    [SerializeField] CinemachineCamera followCam;
+    
+    public enum MovementState
+    {
+        None,
+        Player,
+        Tank
+    }
+
     Rigidbody rb;
     Vector2 movementValue, turretMoveValue;
+
+    public MovementState movementState;
+
+    float raycastDistance = 3.0f;
+
+    [SerializeField] GameObject tankDriver;
 
     private void Awake()
     {
@@ -36,19 +55,67 @@ public class TankController : MonoBehaviour
         turretMoveValue = movement;
     }
 
+    private void Update()
+    {
+        switch (movementState)
+        {
+            case MovementState.Player:
+                if (Physics.Raycast(transform.position + new Vector3(0,0.5f,0), transform.forward, out RaycastHit hitInfo, raycastDistance))
+                {
+                    if (hitInfo.transform.tag == "Vehicle")
+                    {
+                        Debug.Log("I see a vehicle");
+                        if (Keyboard.current.eKey.wasPressedThisFrame)
+                        {
+                            followCam.Follow = hitInfo.transform;
+                            hitInfo.transform.GetComponent<TankController>().DriveTank(this.gameObject);
+                        }
+                    }
+                }
+                break;
+
+            case MovementState.Tank:
+                if (Keyboard.current.fKey.wasPressedThisFrame)
+                {
+                    LeaveTank();
+                }
+                    break;
+
+            default:
+                break;
+        }        
+    }
+
     void FixedUpdate()
+    {
+         switch (movementState)
+        {
+            case MovementState.Player:
+                MovePlayer();
+                break;
+                
+            case MovementState.Tank:
+                MoveTank();
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    void MoveTank()
     {
         if (rb != null)
         {
             rb.AddRelativeForce(Vector3.forward * movementValue.y * Time.fixedDeltaTime * tankData.movementSpeed * rb.mass);
             rb.AddRelativeTorque(Vector3.up * movementValue.x * Time.fixedDeltaTime * tankData.rotationSpeed * rb.mass);
-        }        
+        }
 
         if (turret != null)
         {
             turret.transform.Rotate(Vector3.up, turretMoveValue.x * Time.fixedDeltaTime * tankData.turretRotationSpeed, Space.World);
         }
-        
+
         if (cannon != null)
         {
             cannon.transform.Rotate(-Vector3.right, turretMoveValue.y * Time.fixedDeltaTime * tankData.turretRotationSpeed, Space.Self);
@@ -63,6 +130,32 @@ public class TankController : MonoBehaviour
             {
                 cannon.transform.localRotation = Quaternion.Euler(new Vector3(350, 0, 0));
             }
-        }     
+        }
+    }
+
+    void MovePlayer()
+    {
+        if (rb != null)
+        {
+            rb.AddRelativeForce(new Vector3(movementValue.x, 0, movementValue.y) * Time.fixedDeltaTime * tankData.movementSpeed * rb.mass);
+
+            rb.AddRelativeTorque(Vector3.up * turretMoveValue.x * Time.fixedDeltaTime * tankData.turretRotationSpeed * rb.mass);
+        }
+    }
+
+    public void DriveTank(GameObject driver)
+    {
+        movementState = MovementState.Tank;
+        tankDriver = driver;
+        driver.SetActive(false);
+    }
+
+    void LeaveTank()
+    {
+        movementState = MovementState.None;
+        tankDriver.transform.position = transform.position + (transform.right * 3.0f);
+        tankDriver.SetActive(true);
+        followCam.Follow = tankDriver.transform;
+        tankDriver = null;
     }
 }
