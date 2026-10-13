@@ -37,12 +37,14 @@ public class TankController : MonoBehaviour
     {
         tankInputReader.MoveEvent += MoveTank;
         tankInputReader.TurretMoveEvent += MoveTurret;
+        tankInputReader.FireEvent += FireWeapon;
     }
 
     private void OnDisable()
     {
         tankInputReader.MoveEvent -= MoveTank;
         tankInputReader.TurretMoveEvent -= MoveTurret;
+        tankInputReader.FireEvent -= FireWeapon;
     }
 
     void MoveTank(Vector2 movement)
@@ -53,6 +55,11 @@ public class TankController : MonoBehaviour
     void MoveTurret(Vector2 movement)
     {
         turretMoveValue = movement;
+    }
+
+    void FireWeapon()
+    {
+        BroadcastMessage("Fire", SendMessageOptions.DontRequireReceiver);
     }
 
     private void Update()

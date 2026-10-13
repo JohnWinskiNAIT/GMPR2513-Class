@@ -7,6 +7,7 @@ public class TankInputReader : ScriptableObject, TankInput.IMovementActions
 {
     public event UnityAction<Vector2> MoveEvent;
     public event UnityAction<Vector2> TurretMoveEvent;
+    public event UnityAction FireEvent;
 
     private TankInput _movementActions;
 
@@ -40,5 +41,18 @@ public class TankInputReader : ScriptableObject, TankInput.IMovementActions
         {
             TurretMoveEvent?.Invoke(context.ReadValue<Vector2>());
         }
+    }
+
+    public void OnInteract(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            Debug.Log("Interact");
+        }
+    }
+
+    public void OnFire(InputAction.CallbackContext context)
+    {
+        FireEvent?.Invoke();
     }
 }
