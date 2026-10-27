@@ -9,8 +9,13 @@ public class TankController : MonoBehaviour
     [SerializeField] TankInputReader tankInputReader;
     [SerializeField] TankData tankData;
     [SerializeField] GameObject turret, cannon;
+    [SerializeField] float raycastDistance = 3.0f, upperRotation = 350, lowerRotation = 10;
 
     [SerializeField] CinemachineCamera followCam;
+
+    IInteractable interactableObject;
+
+    LayerMask mask;
     
     public enum MovementState
     {
@@ -24,13 +29,12 @@ public class TankController : MonoBehaviour
 
     public MovementState movementState;
 
-    float raycastDistance = 3.0f;
-
     [SerializeField] GameObject tankDriver;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        mask = LayerMask.GetMask("Interactable") | LayerMask.GetMask("Tank");
     }
 
     private void OnEnable()
@@ -67,7 +71,7 @@ public class TankController : MonoBehaviour
         switch (movementState)
         {
             case MovementState.Player:
-                if (Physics.Raycast(transform.position + new Vector3(0,0.5f,0), transform.forward, out RaycastHit hitInfo, raycastDistance))
+                if (Physics.Raycast(cannon.transform.position, cannon.transform.forward, out RaycastHit hitInfo, raycastDistance, mask))
                 {
                     if (hitInfo.transform.tag == "Vehicle")
                     {
@@ -78,6 +82,26 @@ public class TankController : MonoBehaviour
                             hitInfo.transform.GetComponent<TankController>().DriveTank(this.gameObject);
                         }
                     }
+
+                    if (interactableObject == null)
+                    {
+                        if (hitInfo.transform.TryGetComponent(out interactableObject))
+                        {
+                            Debug.Log("I see a interactable object");
+                            
+                        }
+                    }
+                    else
+                    {
+                        if (Keyboard.current.eKey.wasPressedThisFrame)
+                        {
+                            interactableObject.Interact();
+                        }
+                    }
+                }
+                else
+                {
+                    interactableObject = null;
                 }
                 break;
 
@@ -147,6 +171,23 @@ public class TankController : MonoBehaviour
             rb.AddRelativeForce(new Vector3(movementValue.x, 0, movementValue.y) * Time.fixedDeltaTime * tankData.movementSpeed * rb.mass);
 
             rb.AddRelativeTorque(Vector3.up * turretMoveValue.x * Time.fixedDeltaTime * tankData.turretRotationSpeed * rb.mass);
+
+            if (cannon != null)
+            {
+                cannon.transform.Rotate(-Vector3.right, turretMoveValue.y * Time.fixedDeltaTime * tankData.turretRotationSpeed, Space.Self);
+
+                Vector3 angles = cannon.transform.localEulerAngles;
+
+                if (angles.x > upperRotation && angles.x < 180.0f)
+                {
+                    cannon.transform.localRotation = Quaternion.Euler(new Vector3(upperRotation, 0, 0));
+                }
+                if (angles.x < lowerRotation && angles.x > 180.0f)
+                {
+                    cannon.transform.localRotation = Quaternion.Euler(new Vector3(lowerRotation, 0, 0));
+                }
+            }
+
         }
     }
 

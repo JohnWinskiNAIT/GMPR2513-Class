@@ -361,7 +361,7 @@ GameObject:
   - component: {fileID: 460710725}
   - component: {fileID: 460710727}
   - component: {fileID: 460710726}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -526,7 +526,7 @@ MonoBehaviour:
   m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
-    TrackingTarget: {fileID: 1296097059}
+    TrackingTarget: {fileID: 2059897844}
     LookAtTarget: {fileID: 0}
     CustomLookAtTarget: 0
   Lens:
@@ -558,7 +558,7 @@ Transform:
   m_GameObject: {fileID: 478440085}
   serializedVersion: 2
   m_LocalRotation: {x: 0.16087854, y: -0.0106048025, z: 0.0017287038, w: 0.98691577}
-  m_LocalPosition: {x: -21.063421, y: 2.51, z: 12.64699}
+  m_LocalPosition: {x: -20.538422, y: 3.595, z: 12.64699}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1026,7 +1026,7 @@ Transform:
   m_GameObject: {fileID: 962949573}
   serializedVersion: 2
   m_LocalRotation: {x: 0.16087781, y: -0.010690254, z: 0.0017426271, w: 0.98691493}
-  m_LocalPosition: {x: -21.063421, y: 2.51, z: 12.64699}
+  m_LocalPosition: {x: -20.538422, y: 3.595, z: 12.64699}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1312,6 +1312,9 @@ MonoBehaviour:
   tankData: {fileID: 11400000, guid: 02dcda10bff7e244daf16471b490cb1e, type: 2}
   turret: {fileID: 0}
   cannon: {fileID: 0}
+  raycastDistance: 3
+  upperRotation: 350
+  lowerRotation: 10
   followCam: {fileID: 0}
   movementState: 0
   tankDriver: {fileID: 0}
@@ -1423,7 +1426,7 @@ Transform:
   m_GameObject: {fileID: 1181715464}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -32.82, y: 1.38, z: 15.78}
+  m_LocalPosition: {x: -20.25, y: 1.38, z: 22.28}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1591,7 +1594,7 @@ GameObject:
   - component: {fileID: 1264127700}
   - component: {fileID: 1264127699}
   - component: {fileID: 1264127702}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1786,8 +1789,8 @@ Rigidbody:
   m_GameObject: {fileID: 1296097057}
   serializedVersion: 5
   m_Mass: 1
-  m_LinearDamping: 1
-  m_AngularDamping: 1
+  m_LinearDamping: 2
+  m_AngularDamping: 3
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -1820,6 +1823,9 @@ MonoBehaviour:
   tankData: {fileID: 11400000, guid: 02dcda10bff7e244daf16471b490cb1e, type: 2}
   turret: {fileID: 1296097057}
   cannon: {fileID: 2059897843}
+  raycastDistance: 3
+  upperRotation: 10
+  lowerRotation: 330
   followCam: {fileID: 478440086}
   movementState: 1
   tankDriver: {fileID: 0}
@@ -2246,7 +2252,9 @@ GameObject:
   - component: {fileID: 2130760055}
   - component: {fileID: 2130760054}
   - component: {fileID: 2130760053}
-  m_Layer: 0
+  - component: {fileID: 2130760057}
+  - component: {fileID: 2130760058}
+  m_Layer: 6
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2301,7 +2309,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 0d618ca710821864484379c65ef260a9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2342,12 +2350,46 @@ Transform:
   m_GameObject: {fileID: 2130760052}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -14.73459, y: 1.38, z: 13.66544}
+  m_LocalPosition: {x: -19.94, y: 1.38, z: 23.93}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2130760057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2130760052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31a240ca56ebec84ca4239c99b2e08b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AnimatedCylinder
+--- !u!95 &2130760058
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2130760052}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 20d4a929a8d7af04688185e25a3e2890, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &7664198895312712915
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2356,6 +2398,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 641311764603104266, guid: 8d6206bac1cba2a4b9c5e4645e8fec10, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 711243992853625213, guid: 8d6206bac1cba2a4b9c5e4645e8fec10, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 1502148202713519225, guid: 8d6206bac1cba2a4b9c5e4645e8fec10, type: 3}
       propertyPath: followCam
       value: 
@@ -2364,9 +2414,29 @@ PrefabInstance:
       propertyPath: tankDriver
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 1970100665299073836, guid: 8d6206bac1cba2a4b9c5e4645e8fec10, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3496764448468190118, guid: 8d6206bac1cba2a4b9c5e4645e8fec10, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3502179196586712832, guid: 8d6206bac1cba2a4b9c5e4645e8fec10, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4291324160958854352, guid: 8d6206bac1cba2a4b9c5e4645e8fec10, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5264762975519912870, guid: 8d6206bac1cba2a4b9c5e4645e8fec10, type: 3}
       propertyPath: m_Name
       value: Tank
+      objectReference: {fileID: 0}
+    - target: {fileID: 5264762975519912870, guid: 8d6206bac1cba2a4b9c5e4645e8fec10, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5300518907180037266, guid: 8d6206bac1cba2a4b9c5e4645e8fec10, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2407,6 +2477,14 @@ PrefabInstance:
     - target: {fileID: 5300518907180037266, guid: 8d6206bac1cba2a4b9c5e4645e8fec10, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8510756256028643065, guid: 8d6206bac1cba2a4b9c5e4645e8fec10, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8885465392266319342, guid: 8d6206bac1cba2a4b9c5e4645e8fec10, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
