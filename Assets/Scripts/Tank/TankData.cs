@@ -6,4 +6,7 @@ public class TankData : ScriptableObject
     public float movementSpeed;
     public float rotationSpeed;
     public float turretRotationSpeed;
+
+    public int currentHealth;
+    public int maxHealth;
 }

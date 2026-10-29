@@ -14,6 +14,11 @@ public class Grenade : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        IDamageable damageObject;
+        if (collision.gameObject.TryGetComponent(out damageObject))
+        {
+            damageObject.Damage(5);
+        }
         DeactivateGrenade();
     }
 }

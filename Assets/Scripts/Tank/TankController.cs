@@ -4,7 +4,7 @@ using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class TankController : MonoBehaviour
+public class TankController : MonoBehaviour, IDamageable
 {
     [SerializeField] TankInputReader tankInputReader;
     [SerializeField] TankData tankData;
@@ -35,6 +35,11 @@ public class TankController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         mask = LayerMask.GetMask("Interactable") | LayerMask.GetMask("Tank");
+    }
+
+    private void Start()
+    {
+        tankData.currentHealth = tankData.maxHealth;
     }
 
     private void OnEnable()
@@ -205,5 +210,24 @@ public class TankController : MonoBehaviour
         tankDriver.SetActive(true);
         followCam.Follow = tankDriver.transform;
         tankDriver = null;
+    }
+
+    public void Damage(int damage)
+    {
+        tankData.currentHealth -= damage;
+    }
+
+    public void Heal(int damage)
+    {
+
+    }
+    public int GetHealth()
+    {
+        return tankData.currentHealth;
+    }
+
+    public int GetMaxHealth()
+    {
+        return tankData.maxHealth;
     }
 }

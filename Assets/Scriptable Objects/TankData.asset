@@ -15,3 +15,5 @@ MonoBehaviour:
   movementSpeed: 700
   rotationSpeed: 1100
   turretRotationSpeed: 300
+  currentHealth: 40
+  maxHealth: 40
