@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Grenade : MonoBehaviour
 {
+    [SerializeField] GameObject particlePrefab, explosionObject;
+    ParticleSystem explosionParticle;
     private void OnEnable()
     {
         Invoke("DeactivateGrenade", 5.0f);
@@ -12,6 +14,12 @@ public class Grenade : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    private void Start()
+    {
+        explosionObject = Instantiate(particlePrefab);
+        explosionParticle = explosionObject.GetComponent<ParticleSystem>();        
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         IDamageable damageObject;
@@ -19,6 +27,12 @@ public class Grenade : MonoBehaviour
         {
             damageObject.Damage(5);
         }
+
+        explosionObject.transform.position = transform.position;
+        explosionObject.transform.rotation = Quaternion.FromToRotation(explosionObject.transform.forward, collision.contacts[0].normal);
+        explosionParticle.Play();
+        //Physics.IgnoreLayerCollision(8, 9, true);
+
         DeactivateGrenade();
     }
 }

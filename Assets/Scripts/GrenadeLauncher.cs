@@ -9,6 +9,8 @@ public class GrenadeLauncher : MonoBehaviour
     [SerializeField] float fireRate, fireVelocity, timeStamp;
     int index;
 
+    [SerializeField] ParticleSystem fireParticle;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -45,6 +47,8 @@ public class GrenadeLauncher : MonoBehaviour
 
                     found = true;
                     timeStamp = Time.time;
+
+                    fireParticle.Play();
                 }
             }
         }
