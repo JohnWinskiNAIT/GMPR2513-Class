@@ -8,7 +8,7 @@ public class Grenade : MonoBehaviour
     AudioSource explosionSound;
     private void OnEnable()
     {
-        Invoke("DeactivateGrenade", 5.0f);
+        //Invoke("DeactivateGrenade", 5.0f);
     }
 
     private void DeactivateGrenade()
@@ -32,7 +32,7 @@ public class Grenade : MonoBehaviour
         }
 
         explosionObject.transform.position = transform.position;
-        explosionObject.transform.rotation = Quaternion.FromToRotation(explosionObject.transform.forward, collision.contacts[0].normal);
+        explosionObject.transform.rotation = Quaternion.LookRotation(collision.contacts[0].normal);
         explosionParticle.Play();
         explosionSound.Play();
         //Physics.IgnoreLayerCollision(8, 9, true);

@@ -10,7 +10,7 @@ public class GrenadeLauncher : MonoBehaviour
     int index;
 
     [SerializeField] ParticleSystem fireParticle;
-    AudioSource audio;
+    AudioSource myAudio;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -20,8 +20,8 @@ public class GrenadeLauncher : MonoBehaviour
             GameObject instantiatedObject = Instantiate(projectile);
             grenades.Add(instantiatedObject);
             instantiatedObject.SetActive(false);
-        }       
-        audio = GetComponent<AudioSource>();
+        }
+        myAudio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -51,7 +51,7 @@ public class GrenadeLauncher : MonoBehaviour
                     timeStamp = Time.time;
 
                     fireParticle.Play();
-                    audio.Play();
+                    myAudio.Play();
                 }
             }
         }

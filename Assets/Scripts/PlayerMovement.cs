@@ -1,5 +1,5 @@
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
@@ -7,6 +7,8 @@ public class PlayerMovement : MonoBehaviour
     float movementX, movementY;
     [SerializeField] MovementData moveData;
     Rigidbody rb;
+
+    [SerializeField] AudioMixer myMixer;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -20,7 +22,23 @@ public class PlayerMovement : MonoBehaviour
         if (Keyboard.current.escapeKey.wasPressedThisFrame)
         {
             Application.Quit();
-        }        
+        }
+        
+        if (Keyboard.current.equalsKey.wasPressedThisFrame)
+        {
+            Debug.Log("increase volume");
+            float currentVolume;
+            myMixer.GetFloat("AmbientVolume", out currentVolume);
+            Debug.Log(currentVolume);
+            myMixer.SetFloat("AmbientVolume", ++currentVolume);
+        }
+
+        if (Keyboard.current.minusKey.wasPressedThisFrame)
+        {
+            float currentVolume;
+            myMixer.GetFloat("AmbientVolume", out currentVolume);
+            myMixer.SetFloat("AmbientVolume", --currentVolume);
+        }
     }
 
     void FixedUpdate()
